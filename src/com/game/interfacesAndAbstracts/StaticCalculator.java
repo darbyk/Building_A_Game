@@ -1,5 +1,8 @@
 package com.game.interfacesAndAbstracts;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class StaticCalculator {
 	
 	
@@ -19,5 +22,16 @@ public class StaticCalculator {
 	public static float calculateVelYByAngleAndBaseVelocity(double baseVelocity, double angle)
 	{
 		return (float) (baseVelocity * Math.sin(angle));
+	}
+	
+	public static void renderGraphicFloatingBar(Color backgroundColor, Color fillingColor, Color borderColor, 
+			float startX, float startY, int deltaX, int deltaY, double ratioToFill, Graphics g)
+	{
+		g.setColor(backgroundColor);
+		g.fillRect((int)startX, (int)startY, deltaX, deltaY);
+		g.setColor(fillingColor);
+		g.fillRect((int)startX, (int)startY, (int) (ratioToFill * deltaX), deltaY);
+		g.setColor(borderColor);
+		g.drawRect((int)startX, (int)startY, deltaX, deltaY);
 	}
 }

@@ -2,7 +2,8 @@ package com.game.gameObjects;
 
 public enum ID {
 	Player(),
-	BasicEnemy(),
+	Enemy(),
+	BouncingEnemy(),
 	TrackingEnemy(),
 	Trail(),
 	Bullet(),

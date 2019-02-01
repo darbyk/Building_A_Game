@@ -20,7 +20,7 @@ public class BouncingEnemy extends Enemy{
 	private int maxHitpoints = 100;
 	private int hitPoints = maxHitpoints;
 	private DropBundle enemyDropTable;
-	private GameObject tagger;
+	public GameObject tagger;
 	
 	public BouncingEnemy(int x, int y, ID id, Handler handler, SpriteSheet ss) {
 		super(x, y, id, handler, ss);
@@ -31,29 +31,16 @@ public class BouncingEnemy extends Enemy{
 		
 		createDropBundle();
 		
-//		DropItemInstruction dii1 = new DropItemInstruction(ITEM_LIST.GOLD_COIN, .2, 1, 1);
-//		
-//		DropItemInstruction dii2 = new DropItemInstruction(ITEM_LIST.SILVER_COIN, .5, 1, 1);
-//		DropItemInstruction dii3 = new DropItemInstruction(ITEM_LIST.SILVER_COIN, .5, 1, 1);
-//		DropBundle b1 = new DropBundle(ITEM_LIST.BUNDLE, .8, 1, 1);
-//		DropBundle finalBundle = new DropBundle();
-//		
-//		b1.add(dii2);
-//		b1.add(dii3);
-//		
-//		finalBundle.add(dii1);
-//		finalBundle.add(b1);
-		
 		charDisplay = ss.grabImage(1, 3, X, Y);
 	}
 
-	public int tickHelper(int index) {
-		x += velX;
-		y += velY;
-		
-		return index;
-	}
-	
+//	public int tickHelper(int index) {
+//		x += velX;
+//		y += velY;
+//		
+//		return index;
+//	}
+//	
 	public void collision()
 	{
 		
@@ -65,14 +52,15 @@ public class BouncingEnemy extends Enemy{
 			{
 				if(hitPoints == maxHitpoints)
 				{
-					tagger = tempObject;
+					Bullet b = (Bullet) tempObject;
+					tagger = b.firer;
 				}
 				hitPoints -= 25;
 				
 				handler.removeObject(tempObject);
 				if(hitPoints <= 0)
 				{
-					onDeath();
+					onDeath(tagger);
 					i--;
 				}
 			}
@@ -107,26 +95,27 @@ public class BouncingEnemy extends Enemy{
 		enemyDropTable = finalBundle;
 	}
 	
-	public void onDeath()
-	{
+//	public void onDeath()
+//	{
+//		super.onDeath();
 		//Dead = remove this guy
-		handler.removeObject(this);
+//		handler.removeObject(this);
 		
-		if(tagger instanceof Player)
-		{
-			Player p = (Player) tagger;
-			p.experience += 25;
-		}
+//		if(tagger instanceof Player)
+//		{
+//			Player p = (Player) tagger;
+//			p.experience += 25;
+//		}
 
 		//Loot tables should decide what loot to create in the world
 		//Each enemy should have a 'Loot Table'
 		//Generate Loot to Drop
 
-		enemyDropTable.chooseItemToGenerate((int)x, (int)y, handler);
+//		enemyDropTable.chooseItemToGenerate((int)x, (int)y, handler);
 		
 		//Loot created in the world should be managed via a separate gameObject array, but should probably still be gameObjects for if on the ground
 		//Players should have an inventoryLoot variable
-	}
+//	}
 
 
 	public void render(Graphics g) {

@@ -242,7 +242,7 @@ public class Game extends Canvas implements Runnable{
 				}
 				if(red == 250)
 				{
-					new BouncingEnemy(xx*32, yy*32, ID.BasicEnemy, handler, resourceLoader.getSpriteSheetByType(RESOURCE_TYPES.WalkingBlueImp));
+					new BouncingEnemy(xx*32, yy*32, ID.BouncingEnemy, handler, resourceLoader.getSpriteSheetByType(RESOURCE_TYPES.WalkingBlueImp));
 				}
 			}
 		}

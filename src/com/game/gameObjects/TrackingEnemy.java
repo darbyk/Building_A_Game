@@ -183,12 +183,8 @@ public class TrackingEnemy extends GameObject{
 		
 		if(currentHitPoints != 100)
 		{
-			g.setColor(Color.gray);
-			g.fillRect((int)x +5, (int)y - 10, hitPointsBarSize, 10);
-			g.setColor(Color.green);
-			g.fillRect(5 + (int)x, -10 + (int)y, (int) (currentHitPoints/(double) (maxHitPoints) * hitPointsBarSize), 10);
-			g.setColor(Color.white);
-			g.drawRect(5 + (int) x, -10 + (int) y, hitPointsBarSize, 10);
+			StaticCalculator.renderGraphicFloatingBar(Color.gray, Color.green, Color.white, 
+					x+5, y-10, hitPointsBarSize, 10, currentHitPoints/(double)maxHitPoints, g);
 		}
 	}
 

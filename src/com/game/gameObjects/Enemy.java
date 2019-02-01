@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.game.controllers.SpriteSheet;
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.StaticCalculator;
 import com.game.lootObjects.DropBundle;
 import com.game.lootObjects.DropBundle.ITEM_LIST;
 import com.game.lootObjects.DropItemInstruction;
@@ -55,7 +56,7 @@ public class Enemy extends GameObject{
 				handler.removeObject(tempObject);
 				if(hitPoints <= 0)
 				{
-					onDeath();
+					onDeath(tagger);
 					i--;
 				}
 			}
@@ -90,15 +91,15 @@ public class Enemy extends GameObject{
 		enemyDropTable = finalBundle;
 	}
 	
-	public void onDeath()
+	public void onDeath(GameObject go)
 	{
 		//Dead = remove this guy
 		handler.removeObject(this);
 		
-		if(tagger instanceof Player)
+		if(go instanceof Player)
 		{
-			Player p = (Player) tagger;
-			p.experience += 25;
+			Player p = (Player) go;
+			p.addExperience(25);
 		}
 
 		//Loot tables should decide what loot to create in the world
@@ -118,12 +119,8 @@ public class Enemy extends GameObject{
 		int lengthOfHealthBar = 50;
 		if(hitPoints != maxHitpoints)
 		{
-			g.setColor(Color.gray);
-			g.fillRect((int)x +5, (int)y - 10, lengthOfHealthBar, 10);
-			g.setColor(Color.green);
-			g.fillRect(5 + (int)x, -10 + (int)y, hitPoints/(maxHitpoints / lengthOfHealthBar), 10);
-			g.setColor(Color.white);
-			g.drawRect(5 + (int) x, -10 + (int) y, lengthOfHealthBar, 10);
+			StaticCalculator.renderGraphicFloatingBar(Color.gray, Color.green, Color.white, 
+					x+5, y-10, lengthOfHealthBar, 10, hitPoints/(double)maxHitpoints, g);
 		}
 		
 	}

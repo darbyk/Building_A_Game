@@ -9,7 +9,6 @@ import com.game.controllers.Animation;
 import com.game.controllers.Game;
 import com.game.controllers.SpriteSheet;
 import com.game.interfacesAndAbstracts.GameObject;
-import com.game.main.HUD;
 import com.game.main.Handler;
 
 public class Player extends GameObject{
@@ -23,10 +22,11 @@ public class Player extends GameObject{
 	private Animation playerEastWalk;
 	private Animation playerWestWalk;
 	
+	
 	public int maxHealth = 100;
 	public int health = maxHealth;
-	
 	public int experience = 0;
+	public int experiencePerLevel = 100;
 	
 	public Player(int x, int y, ID id, Handler handler, SpriteSheet ss) {
 		super(x, y, id, handler, ss);
@@ -96,12 +96,17 @@ public class Player extends GameObject{
 		else
 			g.drawImage(charDisplay, (int)x, (int)y, null);
 		
-		//testing
-//		Graphics2D g2d = (Graphics2D) g;
-//		g.setColor(Color.red);
-//		g2d.draw(getBounds());
-		
-		
+	}
+	
+	public void addExperience(int experienceToAdd)
+	{
+		experience += experienceToAdd;
+		System.out.println("Current player exp: " + experience + " exp per level: " + experiencePerLevel);
+		if(experience >= experiencePerLevel)
+		{
+			experience -= experiencePerLevel;
+			experiencePerLevel += 25;
+		}
 	}
 	
 	public void collision(){
@@ -117,7 +122,7 @@ public class Player extends GameObject{
 					y = y - velY;
 				}
 			}
-			if(tempObject.getId() == ID.BasicEnemy)
+			if(tempObject.getId() == ID.BouncingEnemy)
 			{
 				//if basic we're at a basic enemy
 				if(!place_free((int) (x + velX), (int) (y + velY),  getBounds(), tempObject.getBounds()))
@@ -139,31 +144,6 @@ public class Player extends GameObject{
 	}
 	
 	
-//	private void collision()
-//	{
-//		for(int i = 0; i < handler.getObjects().size(); i++)
-//		{
-//			GameObject tempObject = handler.getObjects().get(i);
-//			if(tempObject.getId() == ID.BasicEnemy)
-//			{
-//				//if basic we're at a basic enemy
-//				if(getBounds().intersects(tempObject.getBounds()))
-//				{
-//					//collision code for if player intersects with basic enemy
-//					HUD.HEALTH = Game.clamp(HUD.HEALTH-1, 0, HUD.MAX_HEALTH);
-//				}
-//			}
-//			else if(tempObject.getId() == ID.Block){
-//				if(getBounds().intersects(tempObject.getBounds()))
-//				{
-//					//collided with block
-////					System.out.println("Block collision");
-//					x -= velX;
-//					y -= velY;
-//				}
-//			}
-//		}
-//	}
 	
 	public Rectangle getBounds()
 	{
