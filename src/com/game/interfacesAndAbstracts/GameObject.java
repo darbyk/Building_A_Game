@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.game.controllers.SpriteSheet;
-import com.game.gameObjects.ID;
 import com.game.main.Handler;
 
 public abstract class GameObject {
@@ -28,6 +27,7 @@ public abstract class GameObject {
 		WEST
 	};
 
+	/* Constructors */
 	public GameObject(int x, int y, ID id, Handler handler)
 	{
 		this.x = x;
@@ -50,7 +50,6 @@ public abstract class GameObject {
 	}
 	
 	//abstract methods
-//	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	public abstract void collision();
@@ -95,19 +94,19 @@ public abstract class GameObject {
 	}
 	
 	//setters
-	public void setX(int x){
+	public void setX(float x){
 		this.x = x;
 	}
-	public void setY(int y){
+	public void setY(float y){
 		this.y = y;
 	}
 	public void setId(ID id){
 		this.id = id;
 	}
-	public void setVelX(int velX){
+	public void setVelX(float velX){
 		this.velX = velX;
 	}
-	public void setVelY(int velY){
+	public void setVelY(float velY){
 		this.velY = velY;
 	}
 	public void setDirection(DIRECTION dir)

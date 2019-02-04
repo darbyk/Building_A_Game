@@ -1,4 +1,4 @@
-package com.game.gameObjects;
+package com.game.gameObjects.creatures;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import com.game.controllers.Animation;
 import com.game.controllers.Game;
 import com.game.controllers.SpriteSheet;
+import com.game.gameObjects.lootObjects.DropItemInstruction;
+import com.game.gameObjects.lootObjects.Loot;
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.ID;
 import com.game.main.Handler;
 
 public class Player extends GameObject{
@@ -16,23 +19,29 @@ public class Player extends GameObject{
 	public static final int X = 32;
 	public static final int Y = 36;
 	
-	protected ArrayList<GameObject> playerLoot;
 	private Animation playerSouthWalk;
 	private Animation playerNorthWalk;
 	private Animation playerEastWalk;
 	private Animation playerWestWalk;
 	
 	
-	public int maxHealth = 100;
-	public int health = maxHealth;
-	public int experience = 0;
-	public int experiencePerLevel = 100;
+	public int maxHealth;
+	public int health;
+	public int experience;
+	public int experiencePerLevel;
+	
+	private ArrayList<DropItemInstruction> playerLoot;
 	
 	public Player(int x, int y, ID id, Handler handler, SpriteSheet ss) {
 		super(x, y, id, handler, ss);
 		charDisplay = ss.grabImage(1, 3, X, Y);
-		playerLoot = new ArrayList<GameObject>();
+		playerLoot = new ArrayList<DropItemInstruction>();
 		dir = DIRECTION.SOUTH;
+		
+		maxHealth = 100;
+		health = maxHealth;
+		experience = 0;
+		experiencePerLevel = 100;
 		
 		BufferedImage[] imagesSouthWalk = {
 				ss.grabImage(1, 3, X, Y),
@@ -108,6 +117,24 @@ public class Player extends GameObject{
 			experiencePerLevel += 25;
 		}
 	}
+	public void addLoot(DropItemInstruction item)
+	{
+		boolean hasMerged = false;
+		for(int i = 0; i < playerLoot.size(); i++)
+		{
+			if(playerLoot.get(i).getItemName() == item.getItemName())
+			{
+				DropItemInstruction foundItem = playerLoot.get(i);
+				foundItem.increaseStackedAmount(item.getStackedAmount());
+				hasMerged = true;
+				break;
+			}
+			
+		}
+		if(!hasMerged)
+			playerLoot.add(item);
+		
+	}
 	
 	public void collision(){
 		for (int i = 0; i < handler.getObjects().size(); i++) {
@@ -135,9 +162,12 @@ public class Player extends GameObject{
 			{
 				if(!place_free((int) (x + velX), (int) (y + velY),  getBounds(), tempObject.getBounds()))
 				{
-//					new FloatingText((int) x, (int) y, ID.FloatingText, handler, "Picked up item 1 gold coin");
+					Loot l = (Loot)tempObject;
+					DropItemInstruction item = l.convertObjectToInstruction();
+					addLoot(item);
+					printCurrentLoot();
 					handler.removeObject(tempObject);
-					System.out.println("Text");
+					i--;
 				}
 			}
 		}
@@ -148,6 +178,15 @@ public class Player extends GameObject{
 	public Rectangle getBounds()
 	{
 		return new Rectangle((int)x, (int)y, Player.X, Player.Y);
+	}
+	
+	public void printCurrentLoot()
+	{
+		for(int i = 0; i < playerLoot.size(); i++)
+		{
+			System.out.println(playerLoot.get(i).toString());
+		}
+		System.out.println("----------------------");
 	}
 	
 }

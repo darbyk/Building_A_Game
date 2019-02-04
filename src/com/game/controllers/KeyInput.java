@@ -3,9 +3,9 @@ package com.game.controllers;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.game.gameObjects.Bullet;
-import com.game.gameObjects.ID;
+import com.game.gameObjects.creatures.Bullet;
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.ID;
 import com.game.interfacesAndAbstracts.GameObject.DIRECTION;
 import com.game.main.Handler;
 

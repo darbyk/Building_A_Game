@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import com.game.controllers.SpriteSheet;
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.ID;
 import com.game.main.Handler;
 
 public class Block extends GameObject{

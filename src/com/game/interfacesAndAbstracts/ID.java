@@ -1,4 +1,4 @@
-package com.game.gameObjects;
+package com.game.interfacesAndAbstracts;
 
 public enum ID {
 	Player(),

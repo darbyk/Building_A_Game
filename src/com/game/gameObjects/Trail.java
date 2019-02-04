@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.ID;
 import com.game.main.Handler;
 
 public class Trail extends GameObject {

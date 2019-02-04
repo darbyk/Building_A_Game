@@ -1,4 +1,4 @@
-package com.game.lootObjects;
+package com.game.gameObjects.lootObjects;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -81,6 +81,16 @@ public class DropBundle implements Droppable {
 
 	public double dropRate() {
 		return itemDropRate;
+	}
+	
+	public String toString()
+	{
+		String bufferedString = "";
+		for(int i = 0; i < items.size(); i++)
+		{
+			bufferedString += items.get(i).toString() + "\r\n";
+		}
+		return bufferedString;
 	}
 
 }

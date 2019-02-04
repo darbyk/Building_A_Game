@@ -9,8 +9,8 @@ import java.util.Random;
 
 import com.game.controllers.Game;
 import com.game.controllers.Game.STATE;
+import com.game.gameObjects.creatures.Player;
 import com.game.controllers.SpriteSheet;
-import com.game.gameObjects.Player;
 
 public class Menu extends MouseAdapter{
 	

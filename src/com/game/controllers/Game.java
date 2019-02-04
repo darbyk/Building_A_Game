@@ -8,12 +8,12 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import com.game.gameObjects.BouncingEnemy;
 import com.game.gameObjects.Block;
-import com.game.gameObjects.ID;
-import com.game.gameObjects.Player;
-import com.game.gameObjects.TrackingEnemy;
+import com.game.gameObjects.creatures.BouncingEnemy;
+import com.game.gameObjects.creatures.Player;
+import com.game.gameObjects.creatures.TrackingEnemy;
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.ID;
 import com.game.main.HUD;
 import com.game.main.Handler;
 import com.game.main.Menu;
@@ -238,11 +238,11 @@ public class Game extends Canvas implements Runnable{
 				}
 				if(green == 255)
 				{
-					new TrackingEnemy(xx*32, yy*32, ID.TrackingEnemy, handler, resourceLoader);
+					new TrackingEnemy(xx*32, yy*32, ID.TrackingEnemy, handler, resourceLoader, 300);
 				}
 				if(red == 250)
 				{
-					new BouncingEnemy(xx*32, yy*32, ID.BouncingEnemy, handler, resourceLoader.getSpriteSheetByType(RESOURCE_TYPES.WalkingBlueImp));
+					new BouncingEnemy(xx*32, yy*32, ID.BouncingEnemy, handler, resourceLoader.getSpriteSheetByType(RESOURCE_TYPES.WalkingBlueImp), 100);
 				}
 			}
 		}

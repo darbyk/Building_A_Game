@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import com.game.controllers.Camera;
 import com.game.controllers.Game;
-import com.game.gameObjects.Player;
+import com.game.gameObjects.creatures.Player;
 import com.game.interfacesAndAbstracts.StaticCalculator;
 
 public class HUD {

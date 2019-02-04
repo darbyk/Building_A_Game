@@ -1,4 +1,4 @@
-package com.game.gameObjects;
+package com.game.gameObjects.creatures;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,7 +8,9 @@ import java.util.Random;
 import com.game.controllers.Camera;
 import com.game.controllers.Game;
 import com.game.controllers.SpriteSheet;
+import com.game.gameObjects.Trail;
 import com.game.interfacesAndAbstracts.GameObject;
+import com.game.interfacesAndAbstracts.ID;
 import com.game.interfacesAndAbstracts.StaticCalculator;
 import com.game.main.Handler;
 
