@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import com.game.controllers.Animation;
+import com.game.controllers.Camera;
 import com.game.controllers.Game;
 import com.game.controllers.SpriteSheet;
 import com.game.gameObjects.lootObjects.DropItemInstruction;
@@ -25,8 +26,15 @@ public class Player extends GameObject{
 	private Animation playerWestWalk;
 	
 	
+	public int manaRegenRatePerSecond = 5;
+	public int healthRegenRatePerSecond = 1;
+	public int manaTickTracker = 0;
+	public int healthTickTracker = 0;
+	
 	public int maxHealth;
 	public int health;
+	public int maxMana;
+	public int mana;
 	public int experience;
 	public int experiencePerLevel;
 	
@@ -42,6 +50,8 @@ public class Player extends GameObject{
 		health = maxHealth;
 		experience = 0;
 		experiencePerLevel = 100;
+		maxMana = 100;
+		mana = maxMana;
 		
 		BufferedImage[] imagesSouthWalk = {
 				ss.grabImage(1, 3, X, Y),
@@ -74,18 +84,43 @@ public class Player extends GameObject{
 	public int tickHelper(int index) 
 	{
 		
-//		collision();
+		//Calculating next position?
 		x = Game.clamp(x+velX, 0, (int) (Game.GAME_WIDTH - 1.1*Player.X));
 		y = Game.clamp(y + velY, 0, (int) (Game.GAME_HEIGHT - 1.1*Player.Y));
 		
+		//Seems redundant to run all animations? Should we choose the one to run? 
 		playerSouthWalk.runAnimation();
 		playerNorthWalk.runAnimation();
 		playerEastWalk.runAnimation();
 		playerWestWalk.runAnimation();
 		
+		//Start regen'ing
+		runRegeneration();		
+		
 		return index;
+	}
+	
+	private void runRegeneration()
+	{
+		if(healthTickTracker >= 60)
+		{
+			healthTickTracker = 0;
+			health = (int) Game.clamp(health + healthRegenRatePerSecond, 0, maxHealth);
+		}
+		else
+		{
+			healthTickTracker++;
+		}
 		
-		
+		if(manaTickTracker >= 60)
+		{
+			manaTickTracker = 0;
+			mana = (int) Game.clamp(mana + manaRegenRatePerSecond, 0, maxMana);
+		}
+		else
+		{
+			manaTickTracker++;
+		}
 	}
 
 	public void render(Graphics g) {
@@ -173,6 +208,18 @@ public class Player extends GameObject{
 		}
 	}
 	
+	
+	public void shootMissile(int mx, int my, Handler handler, Camera camera, SpriteSheet bss)
+	{
+		int manaCostOfMissle = 25;
+		if(mana >= manaCostOfMissle)
+		{
+			new Bullet(mx, my, ID.Bullet, handler, this, camera, bss);
+			mana = (int) Game.clamp(mana -25, 0, maxMana);
+		}
+		else
+			System.out.println("You're out of mana!");
+	}
 	
 	
 	public Rectangle getBounds()

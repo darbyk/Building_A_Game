@@ -36,6 +36,8 @@ public class Game extends Canvas implements Runnable{
 	private ResourceLoader resourceLoader;
 	
 	
+	public static final int FPS_DISPLAY_RATE = 60;
+	
 	public static final int WINDOW_WIDTH = 640;
 	public static final int WINDOW_HEIGHT = WINDOW_WIDTH / 12 * 9;
 	
@@ -102,8 +104,8 @@ public class Game extends Canvas implements Runnable{
 		this.requestFocus();
 				
 		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
-		double ns = 1000000000 / amountOfTicks;
+//		double amountOfTicks = 60.0;
+		double ns = 1000000000 / FPS_DISPLAY_RATE;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;

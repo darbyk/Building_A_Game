@@ -1,11 +1,11 @@
 package com.game.controllers;
 
-import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.game.controllers.Game.STATE;
 import com.game.gameObjects.creatures.Bullet;
+import com.game.gameObjects.creatures.Player;
 import com.game.interfacesAndAbstracts.GameObject;
 import com.game.interfacesAndAbstracts.ID;
 import com.game.main.Handler;
@@ -39,7 +39,9 @@ public class MouseInput extends MouseAdapter{
 				if(myObj != null && myObj.getId() == ID.Player)
 					thePlayer = myObj;
 			}
-			new Bullet(mx, my, ID.Bullet, handler, thePlayer, camera, bulletSpriteSheet);
+			Player p = (Player) thePlayer;
+			p.shootMissile(mx, my, handler, camera, bulletSpriteSheet);
+//			new Bullet(mx, my, ID.Bullet, handler, thePlayer, camera, bulletSpriteSheet);
 		}
 	}
 	

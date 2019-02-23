@@ -36,21 +36,16 @@ public class HUD {
 		g.setColor(Color.gray);
 		g.fillRect(xOffset, yOffset, HELPER_BAR_WIDTH, HELPER_BAR_HEIGHT);
 		
+		//Health Bar
 		StaticCalculator.renderGraphicFloatingBar(Color.gray, Color.red, Color.white, 
 				xOffset+9, yOffset+9, 100, 32, mainPlayer.health/(double)mainPlayer.maxHealth, g);
 		
-//		g.setColor(Color.red);
-//		g.fillRect(9 + xOffset, 9 + yOffset, mainPlayer.health, 32);
-//		g.setColor(Color.white);
-//		g.drawRect(9 + xOffset, 9 + yOffset, mainPlayer.maxHealth, 32);
+		//Mana Bar
+		StaticCalculator.renderGraphicFloatingBar(Color.gray, Color.blue, Color.white, 
+				510 + xOffset+9, yOffset+9, 100, 32, mainPlayer.mana/(double)mainPlayer.maxMana, g);
 		
 		StaticCalculator.renderGraphicFloatingBar(Color.DARK_GRAY, Color.green, Color.white, 
 				xOffset, yOffset-3, Game.WINDOW_WIDTH, 6, mainPlayer.experience/(double)mainPlayer.experiencePerLevel, g);
-		
-//		g.setColor(Color.DARK_GRAY);
-//		g.fillRect(xOffset, yOffset - 3, Game.WINDOW_WIDTH, 6);
-//		g.setColor(Color.green);
-//		g.drawRect(xOffset, yOffset - 3, mainPlayer.experience/Game.WINDOW_WIDTH, 6);
 		
 		
 	}
